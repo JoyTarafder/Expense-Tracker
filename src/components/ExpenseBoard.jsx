@@ -1,6 +1,6 @@
-import BalancceSummary from "./BalancceSummary";
-import ExpenseForm from "./ExprenseForm";
-import ExprenseHistroy from "./ExprenseHistroy";
+import BalanceSummary from "./BalanceSummary";
+import ExpenseForm from "./ExpenseForm";
+import ExpenseHistory from "./ExpenseHistory";
 import IncomeHistory from "./IncomeHistory";
 
 export default function ExpenseBoard() {
@@ -16,12 +16,12 @@ export default function ExpenseBoard() {
 
         <div className="lg:col-span-2">
           <div className="bg-white">
-            <BalancceSummary/>
+            <BalanceSummary />
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
-            <IncomeHistory/>
-            <ExprenseHistroy/>
+            <IncomeHistory />
+            <ExpenseHistory />
           </div>
         </div>
       </section>

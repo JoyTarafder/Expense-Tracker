@@ -1,29 +1,36 @@
-import IncomeSvg, { DeleteSvg, EditSvg, FilteringSvg, ShortingSvg } from "../assets/ImageSvg";
+import {
+  DeleteSvg,
+  EditSvg,
+  ExpenseSvg,
+  FilteringSvg,
+  ShortingSvg,
+} from "../assets/ImageSvg";
 // import Shorting from "./Shorting";
 // import Filtering from "./Filtering";
 
-export default function IncomeHistory() {
+export default function ExpenseHistory() {
   return (
-    <div className="border rounded-md relative">
+    <div className="border rounded-md">
       <div className="flex items-center justify-between gap-2 bg-[#F9FAFB] py-4 px-4 rounded-md">
         <div className="flex items-center gap-2">
-          <div className="h-10 w-10 bg-teal-600 text-white rounded-md text-center object-center place-content-center text-base">
-            <IncomeSvg />
+          <div className="h-10 w-10 bg-pink-600 text-white rounded-md text-center object-center place-content-center text-base">
+            <ExpenseSvg />
           </div>
 
           <div>
             <h3 className="text-xl font-semibold leading-7 text-gray-800">
-              Income
+              Expense
             </h3>
           </div>
         </div>
+
         <div>
           <div className="relative inline-block text-left">
             <div>
               <button
                 type="button"
                 className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                id="menu-button"
+                id="menu-button2"
                 aria-expanded="true"
                 aria-haspopup="true"
               >
@@ -39,7 +46,7 @@ export default function IncomeHistory() {
               <button
                 type="button"
                 className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                id="filter-button"
+                id="filter-button-2"
                 aria-expanded="true"
                 aria-haspopup="true"
               >
@@ -56,7 +63,7 @@ export default function IncomeHistory() {
         <div className="flex justify-between items-center py-2 relative group cursor-pointer">
           <div>
             <h3 className="text-base font-medium leading-7 text-gray-600">
-              Salary
+              Education
             </h3>
             <p className="text-xs text-gray-600">15 January 2024</p>
           </div>
@@ -71,7 +78,7 @@ export default function IncomeHistory() {
                 role="button"
                 title="Edit Button"
               >
-                <EditSvg/>
+                <EditSvg />
               </button>
 
               <button
@@ -79,7 +86,7 @@ export default function IncomeHistory() {
                 role="button"
                 title="Delete"
               >
-                <DeleteSvg/>
+                <DeleteSvg />
               </button>
             </div>
           </div>

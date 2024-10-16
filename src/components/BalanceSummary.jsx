@@ -1,4 +1,4 @@
-export default function BalancceSummary(){
+export default function BalanceSummary(){
     return (
         <div className="mx-auto max-w-7xl">
               <dl className="grid grid-cols-1 text-center lg:grid-cols-3 divide-x-2 border rounded-md overflow-hidden">
