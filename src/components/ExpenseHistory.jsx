@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 import {
   DeleteSvg,
   EditSvg,
@@ -6,10 +8,24 @@ import {
   FilteringSvg,
   ShortingSvg,
 } from "../assets/ImageSvg";
-// import Shorting from "./Shorting";
-// import Filtering from "./Filtering";
+import FilteringExpense from "./Filtering";
+import Shorting from "./Shorting";
 
 export default function ExpenseHistory({ expenseForm, handleDelete }) {
+  const [filterShow, setFilterShow] = useState(false);
+
+  const [filteredData, setFilteredData] = useState(expenseForm);
+
+  const [shortingShow, setShortingShow] = useState(false);
+
+  const handleFilter = (e) => {
+    const value = e.target.value;
+    const filtered = expenseForm.filter(
+      (expense) => expense.category === value
+    );
+    setFilteredData(filtered);
+  };
+
   return (
     <div className="border rounded-md">
       <div className="flex items-center justify-between gap-2 bg-[#F9FAFB] py-4 px-4 rounded-md">
@@ -34,12 +50,12 @@ export default function ExpenseHistory({ expenseForm, handleDelete }) {
                 id="menu-button2"
                 aria-expanded="true"
                 aria-haspopup="true"
+                onClick={() => setShortingShow(!shortingShow)}
               >
                 <ShortingSvg />
               </button>
             </div>
-
-            {/* <Shorting/> */}
+            {shortingShow && <Shorting />}
           </div>
 
           <div className="relative inline-block text-left">
@@ -50,12 +66,12 @@ export default function ExpenseHistory({ expenseForm, handleDelete }) {
                 id="filter-button-2"
                 aria-expanded="true"
                 aria-haspopup="true"
+                onClick={() => setFilterShow(!filterShow)}
               >
                 <FilteringSvg />
               </button>
             </div>
-
-            {/* <Filtering/> */}
+            {filterShow && <FilteringExpense onFilter={handleFilter}/>}
           </div>
         </div>
       </div>
@@ -71,7 +87,9 @@ export default function ExpenseHistory({ expenseForm, handleDelete }) {
             </div>
             <div className="flex items-center gap-2">
               <p className="text-base font-semibold text-gray-600 transition-all group-hover:-translate-x-14">
-                {expenseHistory.amount.length > 0 ? `BDT ${expenseHistory.amount}` : ""}
+                {expenseHistory.amount.length > 0
+                  ? `BDT ${expenseHistory.amount}`
+                  : ""}
               </p>
 
               <div className="translate-x-5 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 absolute right-0 top-1/2 -translate-y-1/2 transition-all">

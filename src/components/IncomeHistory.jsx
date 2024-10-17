@@ -1,14 +1,18 @@
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 import IncomeSvg, {
   DeleteSvg,
   EditSvg,
   FilteringSvg,
   ShortingSvg,
 } from "../assets/ImageSvg";
-// import Shorting from "./Shorting";
-// import Filtering from "./Filtering";
+import { FilteringIncome } from "./Filtering";
+import Shorting from "./Shorting";
 
 export default function IncomeHistory({ incomeFrom, handleIncomeDelete }) {
+  const [filterShow, setFilterShow] = useState(false);
+  const [shortingShow, setShortingShow] = useState(false);
+
   return (
     <div className="border rounded-md relative">
       <div className="flex items-center justify-between gap-2 bg-[#F9FAFB] py-4 px-4 rounded-md">
@@ -32,12 +36,13 @@ export default function IncomeHistory({ incomeFrom, handleIncomeDelete }) {
                 id="menu-button"
                 aria-expanded="true"
                 aria-haspopup="true"
+                onClick={() => setShortingShow(!shortingShow)}
               >
                 <ShortingSvg />
               </button>
             </div>
 
-            {/* <Shorting/> */}
+            {shortingShow && <Shorting />}
           </div>
 
           <div className="relative inline-block text-left">
@@ -48,12 +53,12 @@ export default function IncomeHistory({ incomeFrom, handleIncomeDelete }) {
                 id="filter-button"
                 aria-expanded="true"
                 aria-haspopup="true"
+                onClick={() => setFilterShow(!filterShow)}
               >
                 <FilteringSvg />
               </button>
             </div>
-
-            {/* <Filtering/> */}
+            {filterShow && <FilteringIncome />}
           </div>
         </div>
       </div>

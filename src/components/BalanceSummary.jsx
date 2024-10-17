@@ -15,13 +15,9 @@ export default function BalanceSummary({ expenseForm, incomeFrom }) {
           <dd className="order-first text-xl font-semibold tracking-tight text-gray-700 sm:text-3xl">
             BDT{" "}
             {Balance > -1 ? (
-              <span className="order-first text-xl font-semibold tracking-tight text-gray-700 sm:text-3xl">
-                {Balance}
-              </span>
+              <span className=" text-gray-700 ">{Balance}</span>
             ) : (
-              <span className="order-first text-xl font-semibold tracking-tight text-red-500 sm:text-3xl">
-                {Balance}
-              </span>
+              <span className=" text-red-500 ">{Balance}</span>
             )}
           </dd>
         </div>

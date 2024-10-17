@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 export default function ExpenseForm({ handleFormSubmit, toggleForm }) {
-  const defForm = {
-    id: crypto.randomUUID(),
-    category: "",
-    amount: "",
-    date: "",
-  };
-  const [expenseForm, setExpenseForm] = useState([defForm]);
+
+  const [expenseForm, setExpenseForm] = useState([
+    { id: 1, category: 'Food', date: '2023-10-01' },
+    { id: 2, category: 'Transport', date: '2023-10-02' },
+    // Add more initial data as needed
+  ]);
+
 
   const handleChange = (e) => {
     const name = e.target.name;
