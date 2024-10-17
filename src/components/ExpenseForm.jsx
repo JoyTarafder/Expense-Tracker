@@ -1,12 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 export default function ExpenseForm({ onSave, toggleForm }) {
-  const [expenseDataForm, setExpenseDataForm] = useState({
+  const initialExpenseDataForm = {
     id: crypto.randomUUID(),
     category: "",
     amount: "",
     date: "",
-  });
+  };
+  const [expenseDataForm, setExpenseDataForm] = useState(
+    initialExpenseDataForm
+  );
 
   const handleChange = (e) => {
     let name = e.target.name;
@@ -123,6 +126,8 @@ export default function ExpenseForm({ onSave, toggleForm }) {
           }
 
           onSave(expenseDataForm);
+          // Reset form inputs
+          setExpenseDataForm(initialExpenseDataForm);
         }}
       >
         Save

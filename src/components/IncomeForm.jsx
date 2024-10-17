@@ -1,14 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 
-export default function IncomeForm({onSave, toggleForm}) {
-
-  const [incomeDataFrom, setIncomeDataFrom] = useState({
+export default function IncomeForm({ onSave, toggleForm }) {
+  const initialExpenseDataForm = {
     id: crypto.randomUUID(),
     category: "",
     amount: "",
     date: "",
-  });
+  };
+
+  const [incomeDataFrom, setIncomeDataFrom] = useState(initialExpenseDataForm);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -21,8 +22,10 @@ export default function IncomeForm({onSave, toggleForm}) {
   };
   return (
     <form>
-      <div className="flex divide-x divide-slate-400/20 overflow-hidden rounded-md bg-white text-[0.8125rem] font-medium leading-5 text-slate-700 shadow-sm ring-1 ring-slate-700/10 mt-6" 
-      onClick={toggleForm}>
+      <div
+        className="flex divide-x divide-slate-400/20 overflow-hidden rounded-md bg-white text-[0.8125rem] font-medium leading-5 text-slate-700 shadow-sm ring-1 ring-slate-700/10 mt-6"
+        onClick={toggleForm}
+      >
         <div className="cursor-pointer text-center flex-1 px-4 py-2 hover:bg-slate-50 hover:text-slate-900 ">
           Expense
         </div>
@@ -53,7 +56,6 @@ export default function IncomeForm({onSave, toggleForm}) {
             <option value="Outsourcing">Outsourcing</option>
             <option value="Bond">Bond</option>
             <option value="Bond">Dividend</option>
-
           </select>
         </div>
       </div>
@@ -119,6 +121,8 @@ export default function IncomeForm({onSave, toggleForm}) {
           }
 
           onSave(incomeDataFrom);
+          // Reset form inputs
+          setIncomeDataFrom(initialExpenseDataForm);
         }}
       >
         Save
