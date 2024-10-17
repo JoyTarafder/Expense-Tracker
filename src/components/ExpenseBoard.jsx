@@ -1,32 +1,31 @@
-
 import { useState } from "react";
 import BalanceSummary from "./BalanceSummary";
 import ExpenseForm from "./ExpenseForm";
 import ExpenseHistory from "./ExpenseHistory";
-import IncomeHistory from "./IncomeHistory";
 import IncomeForm from "./IncomeForm";
+import IncomeHistory from "./IncomeHistory";
 
 export default function ExpenseBoard() {
   const defForm = {
     id: crypto.randomUUID(),
     category: "Education",
     amount: "10000",
-    date: "15 January 2024"
+    date: "15 January 2024",
   };
   const defIncomeForm = {
     id: crypto.randomUUID(),
     category: "Salary",
     amount: "500",
-    date: "19 January 2024"
+    date: "19 January 2024",
   };
 
   const [expenseForm, setExpenseForm] = useState([defForm]);
   const [incomeFrom, setIncomeFrom] = useState([defIncomeForm]);
   const [activeForm, setActiveForm] = useState("expense"); // "expense" or "income"
-  
+
   // Function to toggle between expense and income forms
   const toggleForm = () => {
-    setActiveForm(true);
+    setActiveForm(!activeForm);
   };
   // Function to handle form deletion
   const handleDelete = (id) => {
@@ -40,26 +39,13 @@ export default function ExpenseBoard() {
   };
 
   // Function to handle form submission
-  const handleFormSubmit = (e) => {
-    e.preventDefault(); // Prevent form submission from refreshing the page
-    const newExpense = {
-      id: crypto.randomUUID(),
-      category: e.target.category.value,
-      amount: e.target.amount.value,
-      date: e.target.date.value
-    };
+  const handleIncomeFormSubmit = (newIncome) => {
+    setIncomeFrom([...incomeFrom, newIncome]);
+  };
+
+  const handleFormSubmit = (newExpense) => {
     setExpenseForm([...expenseForm, newExpense]);
   };
-  // Function to handle income form submission
-  const handleIncomeFormSubmit = (e) => {
-    e.preventDefault(); // Prevent form submission from refreshing the page
-    const newIncome = {
-      id: crypto.randomUUID(),
-      category: e.target.category.value,
-      amount: e.target.amount.value,
-      date: e.target.date.value
-    };
-    setIncomeFrom([...incomeFrom, newIncome]);}
 
   return (
     <main className="relative mx-auto mt-10 w-full max-w-7xl">
@@ -68,21 +54,33 @@ export default function ExpenseBoard() {
           <h2 className="text-3xl font-semibold leading-7 text-gray-800 text-center">
             Expense Tracker
           </h2>
-          {activeForm === !true ? (
-            <IncomeForm handleIncomeFormSubmit={handleIncomeFormSubmit}/>
+          {activeForm ? (
+            <ExpenseForm
+              handleFormSubmit={handleFormSubmit}
+              toggleForm={toggleForm}
+            />
           ) : (
-            <ExpenseForm handleFormSubmit={handleFormSubmit} toggleForm={toggleForm}/>
+            <IncomeForm
+              handleIncomeFormSubmit={handleIncomeFormSubmit}
+              toggleForm={toggleForm}
+            />
           )}
         </div>
 
         <div className="lg:col-span-2">
           <div className="bg-white">
-            <BalanceSummary  expenseForm={expenseForm} incomeFrom={incomeFrom}/>
+            <BalanceSummary expenseForm={expenseForm} incomeFrom={incomeFrom} />
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
-            <IncomeHistory incomeFrom={incomeFrom} handleIncomeDelete={handleIncomeDelete}/>
-            <ExpenseHistory expenseForm={expenseForm} handleDelete={handleDelete} />
+            <IncomeHistory
+              incomeFrom={incomeFrom}
+              handleIncomeDelete={handleIncomeDelete}
+            />
+            <ExpenseHistory
+              expenseForm={expenseForm}
+              handleDelete={handleDelete}
+            />
           </div>
         </div>
       </section>
