@@ -1,8 +1,14 @@
-import IncomeSvg, { DeleteSvg, EditSvg, FilteringSvg, ShortingSvg } from "../assets/ImageSvg";
+/* eslint-disable react/prop-types */
+import IncomeSvg, {
+  DeleteSvg,
+  EditSvg,
+  FilteringSvg,
+  ShortingSvg,
+} from "../assets/ImageSvg";
 // import Shorting from "./Shorting";
 // import Filtering from "./Filtering";
 
-export default function IncomeHistory() {
+export default function IncomeHistory({ incomeFrom, handleIncomeDelete }) {
   return (
     <div className="border rounded-md relative">
       <div className="flex items-center justify-between gap-2 bg-[#F9FAFB] py-4 px-4 rounded-md">
@@ -52,39 +58,44 @@ export default function IncomeHistory() {
         </div>
       </div>
 
-      <div className="p-4 divide-y">
-        <div className="flex justify-between items-center py-2 relative group cursor-pointer">
-          <div>
-            <h3 className="text-base font-medium leading-7 text-gray-600">
-              Salary
-            </h3>
-            <p className="text-xs text-gray-600">15 January 2024</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <p className="text-base font-semibold text-gray-600 transition-all group-hover:-translate-x-14">
-              BDT 10000
-            </p>
+      {incomeFrom.map((incomeHistory) => (
+        <div className="p-4 divide-y" key={incomeHistory.id}>
+          <div className="flex justify-between items-center py-2 relative group cursor-pointer">
+            <div>
+              <h3 className="text-base font-medium leading-7 text-gray-600">
+                {incomeHistory.category}
+              </h3>
+              <p className="text-xs text-gray-600">{incomeHistory.date}</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <p className="text-base font-semibold text-gray-600 transition-all group-hover:-translate-x-14">
+                {incomeHistory.amount.length > 0
+                  ? `BDT ${incomeHistory.amount}`
+                  : ""}
+              </p>
 
-            <div className="translate-x-5 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 absolute right-0 top-1/2 -translate-y-1/2 transition-all">
-              <button
-                className="hover:text-teal-600"
-                role="button"
-                title="Edit Button"
-              >
-                <EditSvg/>
-              </button>
+              <div className="translate-x-5 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 absolute right-0 top-1/2 -translate-y-1/2 transition-all">
+                <button
+                  className="hover:text-teal-600"
+                  role="button"
+                  title="Edit Button"
+                >
+                  <EditSvg />
+                </button>
 
-              <button
-                className="hover:text-red-600"
-                role="button"
-                title="Delete"
-              >
-                <DeleteSvg/>
-              </button>
+                <button
+                  className="hover:text-red-600"
+                  role="button"
+                  title="Delete"
+                  onClick={() => handleIncomeDelete(incomeHistory.id)}
+                >
+                  <DeleteSvg />
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      ))}
     </div>
   );
 }

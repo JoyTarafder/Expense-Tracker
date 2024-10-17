@@ -1,34 +1,31 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-export default function ExpenseForm({ handleFormSubmit, toggleForm }) {
-  const defForm = {
+
+export default function IncomeForm({handleIncomeFormSubmit}) {
+
+  const [incomeFrom, setIncomeFrom] = useState({
     id: crypto.randomUUID(),
     category: "",
     amount: "",
     date: "",
-  };
-  const [expenseForm, setExpenseForm] = useState([defForm]);
+  });
 
   const handleChange = (e) => {
     const name = e.target.name;
     let value = e.target.value;
 
-    setExpenseForm({
-      ...expenseForm,
+    setIncomeFrom({
+      ...incomeFrom,
       [name]: value,
     });
   };
-
   return (
     <form>
       <div className="flex divide-x divide-slate-400/20 overflow-hidden rounded-md bg-white text-[0.8125rem] font-medium leading-5 text-slate-700 shadow-sm ring-1 ring-slate-700/10 mt-6">
-        <div
-          className="cursor-pointer text-center flex-1 px-4 py-2 hover:bg-slate-50 hover:text-slate-900 active"
-          onClick={toggleForm}
-        >
+        <div className="cursor-pointer text-center flex-1 px-4 py-2 hover:bg-slate-50 hover:text-slate-900 ">
           Expense
         </div>
-        <div className="cursor-pointer text-center flex-1 px-4 py-2 hover:bg-slate-50 hover:text-slate-900">
+        <div className="cursor-pointer text-center flex-1 px-4 py-2 hover:bg-slate-50 hover:text-slate-900 active">
           Income
         </div>
       </div>
@@ -47,16 +44,13 @@ export default function ExpenseForm({ handleFormSubmit, toggleForm }) {
             autoComplete="category-name"
             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
             onChange={handleChange}
-            value={expenseForm.category}
+            value={incomeFrom.category}
           >
-            <option>Education</option>
-            <option>Food</option>
-            <option>Health</option>
-            <option>Bill</option>
-            <option>Insurance</option>
-            <option>Tax</option>
-            <option>Transport</option>
-            <option>Telephone</option>
+            <option>Salary</option>
+            <option>Outsourcing</option>
+            <option>Bond</option>
+            <option>Dividend</option>
+
           </select>
         </div>
       </div>
@@ -77,7 +71,7 @@ export default function ExpenseForm({ handleFormSubmit, toggleForm }) {
             placeholder="12931"
             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
             onChange={handleChange}
-            value={expenseForm.amount}
+            value={incomeFrom.amount}
           />
         </div>
       </div>
@@ -98,7 +92,7 @@ export default function ExpenseForm({ handleFormSubmit, toggleForm }) {
             placeholder="12931"
             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
             onChange={handleChange}
-            value={expenseForm.date}
+            value={incomeFrom.date}
           />
         </div>
       </div>
@@ -108,7 +102,7 @@ export default function ExpenseForm({ handleFormSubmit, toggleForm }) {
         className="mt-6 rounded-md bg-teal-600 px-8 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 w-full"
         onClick={(e) => {
           e.preventDefault(); // Prevent form submission from refreshing the page
-          handleFormSubmit(e);
+          handleIncomeFormSubmit(e);
         }}
       >
         Save
