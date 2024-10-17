@@ -1,18 +1,19 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-export default function ExpenseForm({ handleFormSubmit, toggleForm }) {
-  const [expenseForm, setExpenseForm] = useState([
-    { id: 1, category: "Food", date: "2023-10-01" },
-    { id: 2, category: "Transport", date: "2023-10-02" },
-    // Add more initial data as needed
-  ]);
+export default function ExpenseForm({ onSave, toggleForm }) {
+  const [expenseDataForm, setExpenseDataForm] = useState({
+    id: crypto.randomUUID(),
+    category: "",
+    amount: "",
+    date: "",
+  });
 
   const handleChange = (e) => {
-    const name = e.target.name;
+    let name = e.target.name;
     let value = e.target.value;
 
-    setExpenseForm({
-      ...expenseForm,
+    setExpenseDataForm({
+      ...expenseDataForm,
       [name]: value,
     });
   };
@@ -45,16 +46,18 @@ export default function ExpenseForm({ handleFormSubmit, toggleForm }) {
             autoComplete="category-name"
             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
             onChange={handleChange}
-            value={expenseForm.category}
+            value={expenseDataForm.category}
+            required
           >
-            <option>Education</option>
-            <option>Food</option>
-            <option>Health</option>
-            <option>Bill</option>
-            <option>Insurance</option>
-            <option>Tax</option>
-            <option>Transport</option>
-            <option>Telephone</option>
+            <option>Select Option</option>
+            <option value="Education">Education</option>
+            <option value="Food">Food</option>
+            <option value="Health">Health</option>
+            <option value="Bill">Bill</option>
+            <option value="Insurance">Insurance</option>
+            <option value="Tax">Tax</option>
+            <option value="Transport">Transport</option>
+            <option value="Telephone">Telephone</option>
           </select>
         </div>
       </div>
@@ -75,7 +78,8 @@ export default function ExpenseForm({ handleFormSubmit, toggleForm }) {
             placeholder="12931"
             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
             onChange={handleChange}
-            value={expenseForm.amount}
+            value={expenseDataForm.amount}
+            required
           />
         </div>
       </div>
@@ -96,7 +100,8 @@ export default function ExpenseForm({ handleFormSubmit, toggleForm }) {
             placeholder="12931"
             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
             onChange={handleChange}
-            value={expenseForm.date}
+            value={expenseDataForm.date}
+            required
           />
         </div>
       </div>
@@ -106,7 +111,18 @@ export default function ExpenseForm({ handleFormSubmit, toggleForm }) {
         className="mt-6 rounded-md bg-teal-600 px-8 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 w-full"
         onClick={(e) => {
           e.preventDefault(); // Prevent form submission from refreshing the page
-          handleFormSubmit(e);
+
+          // Validate form inputs
+          if (
+            expenseDataForm.category === "" ||
+            expenseDataForm.amount === "" ||
+            expenseDataForm.date === ""
+          ) {
+            alert("Please fill in all required fields.");
+            return;
+          }
+
+          onSave(expenseDataForm);
         }}
       >
         Save

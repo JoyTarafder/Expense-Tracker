@@ -70,7 +70,13 @@ export default function IncomeHistory({ incomeFrom, handleIncomeDelete }) {
               <h3 className="text-base font-medium leading-7 text-gray-600">
                 {incomeHistory.category}
               </h3>
-              <p className="text-xs text-gray-600">{incomeHistory.date}</p>
+              <p className="text-xs text-gray-600">
+                {new Date(incomeHistory.date).toLocaleDateString("en-US", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </p>
             </div>
             <div className="flex items-center gap-2">
               <p className="text-base font-semibold text-gray-600 transition-all group-hover:-translate-x-14">

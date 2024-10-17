@@ -29,7 +29,7 @@ export default function ExpenseBoard() {
   };
   // Function to handle form deletion
   const handleDelete = (id) => {
-    const newExpenseForm = expenseForm.filter((expense) => expense.id !== id);
+    const newExpenseForm = expenseForm.filter((expenseData) => expenseData.id !== id);
     setExpenseForm(newExpenseForm);
   };
   // Function to handle income form deletion
@@ -43,9 +43,11 @@ export default function ExpenseBoard() {
     setIncomeFrom([...incomeFrom, newIncome]);
   };
 
-  const handleFormSubmit = (newExpense) => {
+  const handleExpenseFormSubmit = (newExpense) => {
     setExpenseForm([...expenseForm, newExpense]);
   };
+
+
 
   return (
     <main className="relative mx-auto mt-10 w-full max-w-7xl">
@@ -56,12 +58,12 @@ export default function ExpenseBoard() {
           </h2>
           {activeForm ? (
             <ExpenseForm
-              handleFormSubmit={handleFormSubmit}
+              onSave={handleExpenseFormSubmit}
               toggleForm={toggleForm}
             />
           ) : (
             <IncomeForm
-              handleIncomeFormSubmit={handleIncomeFormSubmit}
+              onSave={handleIncomeFormSubmit}
               toggleForm={toggleForm}
             />
           )}

@@ -20,9 +20,7 @@ export default function ExpenseHistory({ expenseForm, handleDelete }) {
 
   const handleFilter = (e) => {
     const value = e.target.value;
-    const filtered = expenseForm.filter(
-      (expense) => expense.category === value
-    );
+    const filtered = expenseForm.filter((expense) => expense.category == value);
     setFilteredData(filtered);
   };
 
@@ -71,7 +69,7 @@ export default function ExpenseHistory({ expenseForm, handleDelete }) {
                 <FilteringSvg />
               </button>
             </div>
-            {filterShow && <FilteringExpense onFilter={handleFilter}/>}
+            {filterShow && <FilteringExpense onFilter={handleFilter} />}
           </div>
         </div>
       </div>
@@ -83,7 +81,13 @@ export default function ExpenseHistory({ expenseForm, handleDelete }) {
               <h3 className="text-base font-medium leading-7 text-gray-600">
                 {expenseHistory.category}
               </h3>
-              <p className="text-xs text-gray-600">{expenseHistory.date}</p>
+              <p className="text-xs text-gray-600">
+                {new Date(expenseHistory.date).toLocaleDateString("en-US", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </p>
             </div>
             <div className="flex items-center gap-2">
               <p className="text-base font-semibold text-gray-600 transition-all group-hover:-translate-x-14">

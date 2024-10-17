@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
 export default function BalanceSummary({ expenseForm, incomeFrom }) {
-  let TotalBalance = incomeFrom.map((incomeFromBal) => incomeFromBal.amount);
-  // TotalBalance = TotalBalance.reduce((a, b) => a + b);
-  let TotalExpense = expenseForm.map((expenseFormBal) => expenseFormBal.amount);
-  // TotalExpense = TotalExpense.reduce((a, b) => a + b);
-  let Balance = 0;
-  Balance = TotalBalance - TotalExpense;
+  // Calculate total income
+  let TotalIncome = incomeFrom.reduce((total, income) => total + parseFloat(income.amount), 0);
+
+  // Calculate total expense
+  let TotalExpense = expenseForm.reduce((total, expense) => total + parseFloat(expense.amount), 0);
+
+  // Calculate balance
+  let Balance = TotalIncome - TotalExpense;
 
   return (
     <div className="mx-auto max-w-7xl">
@@ -14,27 +16,23 @@ export default function BalanceSummary({ expenseForm, incomeFrom }) {
           <dt className="text-base leading-7 text-gray-600">Balance</dt>
           <dd className="order-first text-xl font-semibold tracking-tight text-gray-700 sm:text-3xl">
             BDT{" "}
-            {Balance > -1 ? (
-              <span className=" text-gray-700 ">{Balance}</span>
+            {Balance >= 0 ? (
+              <span className="text-gray-700">{Balance}</span>
             ) : (
-              <span className=" text-red-500 ">{Balance}</span>
+              <span className="text-red-500">{Balance}</span>
             )}
           </dd>
         </div>
         <div className="bg-[#F9FAFB] flex lg:max-w-xs flex-col px-4 py-4">
           <dt className="text-base leading-7 text-gray-600">Total Income</dt>
           <dd className="order-first text-xl font-semibold tracking-tight text-gray-700 sm:text-3xl">
-            {TotalBalance == 0
-              ? `BDT ${(TotalBalance = 0)}`
-              : `BDT ${TotalBalance}`}
+            BDT {TotalIncome}
           </dd>
         </div>
         <div className="bg-[#F9FAFB] flex lg:max-w-xs flex-col px-4 py-4">
           <dt className="text-base leading-7 text-gray-600">Total Expense</dt>
           <dd className="order-first text-xl font-semibold tracking-tight text-gray-700 sm:text-3xl">
-            {TotalExpense == 0
-              ? `BDT ${(TotalExpense = 0)}`
-              : `BDT ${TotalExpense}`}
+            BDT {TotalExpense}
           </dd>
         </div>
       </dl>
