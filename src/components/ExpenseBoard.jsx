@@ -6,6 +6,7 @@ import IncomeForm from "./IncomeForm";
 import IncomeHistory from "./IncomeHistory";
 
 export default function ExpenseBoard() {
+  const { crypto } = window;
   const defForm = {
     id: crypto.randomUUID(),
     category: "Education",
@@ -29,7 +30,9 @@ export default function ExpenseBoard() {
   };
   // Function to handle form deletion
   const handleDelete = (id) => {
-    const newExpenseForm = expenseForm.filter((expenseData) => expenseData.id !== id);
+    const newExpenseForm = expenseForm.filter(
+      (expenseData) => expenseData.id !== id
+    );
     setExpenseForm(newExpenseForm);
   };
   // Function to handle income form deletion
@@ -46,8 +49,6 @@ export default function ExpenseBoard() {
   const handleExpenseFormSubmit = (newExpense) => {
     setExpenseForm([...expenseForm, newExpense]);
   };
-
-
 
   return (
     <main className="relative mx-auto mt-10 w-full max-w-7xl">

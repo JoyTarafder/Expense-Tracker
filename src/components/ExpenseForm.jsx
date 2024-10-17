@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 export default function ExpenseForm({ onSave, toggleForm }) {
+  const { crypto } = window;
   const initialExpenseDataForm = {
     id: crypto.randomUUID(),
     category: "",
