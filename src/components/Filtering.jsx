@@ -48,8 +48,8 @@ export function FilteringIncome() {
   );
 }
 export default function FilteringExpense({ onFilter }) {
-  const handleChange = (e) => {
-    onFilter(e.target.value);
+  const handleChange = () => {
+    onFilter();
   };
   return (
     <div
@@ -131,7 +131,6 @@ export default function FilteringExpense({ onFilter }) {
             className="form-checkbox h-4 w-4 rounded-md text-gray-600"
             id="filter-option-3"
             onChange={handleChange}
-            
           />
           <span className="ml-2">Telephone</span>
         </label>

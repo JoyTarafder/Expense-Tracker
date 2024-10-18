@@ -12,17 +12,41 @@ import FilteringExpense from "./Filtering";
 import Shorting from "./Shorting";
 
 export default function ExpenseHistory({ expenseForm, handleDelete }) {
+  const [editShow, setEditShow] = useState(false);
+
   const [filterShow, setFilterShow] = useState(false);
 
   const [filteredData, setFilteredData] = useState(expenseForm);
 
   const [shortingShow, setShortingShow] = useState(false);
 
-  const handleFilter = (e) => {
-    const value = e.target.value;
-    const filtered = expenseForm.filter((expense) => expense.category == value);
-    setFilteredData(filtered);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const [editedExpenseId, setEditedExpenseId] = useState(null);
+
+  const [sortBy, setSortBy] = useState("Low to High");
+
+  const handleFilter = (value) => {
+    setSelectedCategory(value);
   };
+
+  const handleSort = (sortValue) => {
+    setSortBy(sortValue);
+  };
+
+  const filteredDataEx =
+    selectedCategory === "All"
+      ? expenseForm
+      : expenseForm.filter(
+          (expenseData) => expenseData.category === selectedCategory
+        );
+
+  const sortedData =
+    sortBy === "Low to High"
+      ? [...filteredData].sort((a, b) => a.amount - b.amount)
+      : sortBy === "High to Low"
+      ? [...filteredData].sort((a, b) => b.amount - a.amount)
+      : filteredData;
 
   return (
     <div className="border rounded-md">
@@ -53,7 +77,7 @@ export default function ExpenseHistory({ expenseForm, handleDelete }) {
                 <ShortingSvg />
               </button>
             </div>
-            {shortingShow && <Shorting />}
+            {shortingShow && <Shorting onSort={handleSort} />}
           </div>
 
           <div className="relative inline-block text-left">
@@ -97,22 +121,30 @@ export default function ExpenseHistory({ expenseForm, handleDelete }) {
               </p>
 
               <div className="translate-x-5 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 absolute right-0 top-1/2 -translate-y-1/2 transition-all">
-                <button
-                  className="hover:text-teal-600"
-                  role="button"
-                  title="Edit Button"
-                >
-                  <EditSvg />
-                </button>
-
-                <button
-                  className="hover:text-red-600"
-                  role="button"
-                  title="Delete"
-                  onClick={() => handleDelete(expenseHistory.id)}
-                >
-                  <DeleteSvg />
-                </button>
+                {expenseForm.map((expense) => (
+                  <div
+                    key={expense.id}
+                    className="translate-x-5 flex group-hover:translate-x-0 opacity-0 group-hover:opacity-100 absolute right-0 top-1/2 -translate-y-1/2 transition-all"
+                  >
+                    <button
+                      className="hover:text-teal-600"
+                      role="button"
+                      title="Edit Button"
+                      onClick={() => setEditedExpenseId(expense.id)}
+                    >
+                      <EditSvg />
+                    </button>
+                    {/* <EditExpenseForm /> */}
+                    <button
+                      className="hover:text-red-600"
+                      role="button"
+                      title="Delete"
+                      onClick={() => handleDelete(expenseHistory.id)}
+                    >
+                      <DeleteSvg />
+                    </button>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

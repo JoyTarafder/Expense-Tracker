@@ -1,4 +1,15 @@
-export default function Shorting() {
+
+/* eslint-disable react/prop-types */
+import  { useState } from "react";
+
+export default function Shorting({ onSort }) {
+  const [sortBy, setSortBy] = useState("Low to High");
+
+  const handleSort = (sortValue) => {
+    setSortBy(sortValue);
+    onSort(sortValue);
+  };
+
   return (
     <div
       className="absolute z-10 mt-2 left-5 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
@@ -13,7 +24,9 @@ export default function Shorting() {
           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-all"
           role="menuitem"
           tabIndex="-1"
-          id="menu-item-0"
+          id="sortBy"
+          value={sortBy}
+          onClick={() => handleSort("Low to High")}
         >
           Low to High
         </a>
@@ -22,7 +35,9 @@ export default function Shorting() {
           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-all"
           role="menuitem"
           tabIndex="-1"
-          id="menu-item-0"
+          id="sortBy"
+          value={sortBy}
+          onClick={() => handleSort("High to Low")}
         >
           High to Low
         </a>

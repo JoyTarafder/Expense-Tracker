@@ -2,18 +2,6 @@
 import { useState } from "react";
 
 export default function IncomeForm({ onSave, toggleForm }) {
-  /* This code snippet is a React functional component named `IncomeForm` that represents a form for
-  adding income data. Here's a breakdown of what the mentioned code is doing: */
-  /* 1. Importing the `useState` hook from React. This hook allows us to manage the state of our component. */
-  /* 2. Defining the initial state of the form data using the `useState` hook. The form data includes the category, amount, and date of the income. */
-  /* 3. Creating a function `handleChange` that updates the form data based on user input. */
-  /* 4. Returning a form element with input fields for category, amount, and date. */
-  /* 5. Adding an event listener to the form submission that triggers the `onSave` function with the current form data as an argument. */
-  /* 6. Resetting the form data to its initial state after submission. */
-  /* 7. Adding a button that triggers the form submission when clicked. */
-  /* 8. Adding a button that triggers the form reset when clicked. */
-  /* 9. Adding a button that triggers the form reset when clicked. */
-  /* 10. Exporting the `IncomeForm` component as the default export of the module. */
   const { crypto } = window;
   const initialExpenseDataForm = {
     id: crypto.randomUUID(),
